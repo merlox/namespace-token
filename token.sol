@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.5.10;
 
 interface IERC20 {
     function totalSupply() external view returns (uint256);
@@ -58,7 +58,13 @@ contract ERC20 is IERC20 {
 
     mapping (address => mapping (address => uint256)) private _allowances;
 
-    uint256 private _totalSupply;
+    uint256 private _totalSupply = 3 * 1e9 * 1 ether;
+
+
+    constructor() public {
+        _balances[msg.sender] = _totalSupply;
+    }
+
 
     function totalSupply() public view returns (uint256) {
         return _totalSupply;
@@ -129,8 +135,4 @@ contract Namespace is ERC20 {
     string public name = 'Namespace';
     string public symbol = 'NAME';
     uint256 public decimals = 18;
-
-    constructor() public {
-        _totalSupply = 3 * 1e9 * 1 ether;
-    }
 }
